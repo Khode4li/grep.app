@@ -12,7 +12,7 @@ git clone https://github.com/Khode4li/grep.app.git && cd grep.app && pip install
 Usage Example:
 
 ```bash
-grepWL '$request->validate' --s2f # this command saves all the source code containing $request->validate to output folder.
+grepWL '$request->validate' --s2f --threads 20 # this command saves all the source code containing $request->validate to output folder.
 grep -h -oP "'\K[a-zA-Z0-9_]+(?=' *:)" output/* # extracts all parameter names from the files
 rm -rf output # delete files
 ```
