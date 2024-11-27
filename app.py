@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 from bs4 import BeautifulSoup
 import typer
 import requests
@@ -49,7 +50,8 @@ def print_clean_source_code(src, source_id, s2f):
         os.makedirs(folder_name, exist_ok=True)
         
         # Save the source code to a file named after source_id inside the folder
-        file_path = os.path.join(folder_name, f"{source_id.replace('/','-').replace('\\','')}.txt")
+        sanitized_name = source_id.replace('/','-').replace('\\','')
+        file_path = os.path.join(folder_name, f"{sanitized_name}.txt")
         with open(file_path, 'w', encoding='utf-8') as file:
             file.write(full_source_code)
         print(f"[+] {source_id} Source code saved to {file_path}")
@@ -79,7 +81,7 @@ def fetch_all_source_codes_concurrently(source_ids, params, threads, s2f):
 app = typer.Typer()
 
 @app.command()
-def search(search: str, regex: bool = False, regexp: bool = False, lang: str = "", threads: int = 10, s2f: bool = False):
+def search(search: str, regexp: bool = False, lang: str = "", threads: int = 10, s2f: bool = False):
     """Just a simple tool to extract source codes from grep.app"""
     params = {'q': search}
     if regexp:
